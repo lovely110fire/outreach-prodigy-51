@@ -98,6 +98,54 @@ export type Database = {
         }
         Relationships: []
       }
+      email_settings: {
+        Row: {
+          app_password: string
+          created_at: string
+          display_name: string | null
+          email_address: string
+          id: string
+          imap_port: number
+          imap_server: string
+          is_warming: boolean | null
+          smtp_port: number
+          smtp_server: string
+          updated_at: string
+          user_id: string
+          warming_status: string | null
+        }
+        Insert: {
+          app_password: string
+          created_at?: string
+          display_name?: string | null
+          email_address: string
+          id?: string
+          imap_port?: number
+          imap_server: string
+          is_warming?: boolean | null
+          smtp_port?: number
+          smtp_server: string
+          updated_at?: string
+          user_id: string
+          warming_status?: string | null
+        }
+        Update: {
+          app_password?: string
+          created_at?: string
+          display_name?: string | null
+          email_address?: string
+          id?: string
+          imap_port?: number
+          imap_server?: string
+          is_warming?: boolean | null
+          smtp_port?: number
+          smtp_server?: string
+          updated_at?: string
+          user_id?: string
+          warming_status?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null

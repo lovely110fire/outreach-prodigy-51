@@ -1,11 +1,11 @@
-import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
   Home, Send, Bot, List, Users, Kanban, CheckSquare,
   Mail, Linkedin, AppWindow, Inbox, ChevronDown, User,
-  Building2
+  Building2, LogOut
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useAuth } from "@/hooks/useAuth";
 
 const platformItems = [
   { title: "Home", url: "/", icon: Home },
@@ -62,9 +62,12 @@ function SidebarSection({ label, items }: { label: string; items: typeof platfor
 }
 
 export function AppSidebar() {
+  const { user, signOut } = useAuth();
+  const displayName = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "User";
+  const email = user?.email || "";
+
   return (
     <aside className="w-60 h-screen bg-sidebar border-r border-sidebar-border flex flex-col shrink-0">
-      {/* Org selector */}
       <div className="p-4 border-b border-sidebar-border">
         <button className="flex items-center gap-2 w-full text-left text-sm text-foreground hover:bg-sidebar-accent rounded-md p-2 transition-colors">
           <div className="w-7 h-7 rounded bg-primary/20 flex items-center justify-center">
@@ -78,23 +81,24 @@ export function AppSidebar() {
         </button>
       </div>
 
-      {/* Nav */}
       <nav className="flex-1 overflow-y-auto py-4">
         <SidebarSection label="Platform" items={platformItems} />
         <SidebarSection label="Leads & CRM" items={leadsItems} />
         <SidebarSection label="Others" items={othersItems} />
       </nav>
 
-      {/* User */}
       <div className="p-4 border-t border-sidebar-border">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
             <User className="h-4 w-4 text-primary" />
           </div>
-          <div className="min-w-0">
-            <p className="text-sm font-medium text-foreground truncate">Talha Anwar</p>
-            <p className="text-[10px] text-muted-foreground truncate">talha@tegency.site</p>
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-medium text-foreground truncate">{displayName}</p>
+            <p className="text-[10px] text-muted-foreground truncate">{email}</p>
           </div>
+          <button onClick={signOut} className="text-muted-foreground hover:text-foreground transition-colors" title="Sign out">
+            <LogOut className="h-4 w-4" />
+          </button>
         </div>
       </div>
     </aside>
